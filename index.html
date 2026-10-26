@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Free Supabase Auth Email Checker: why aren't my signup emails arriving?</title>
+<meta name="description" content="Free, no-signup check of your sender domain's SPF, DKIM, DMARC and MX records, plus a plain-English checklist for Supabase Auth Site URL, redirect URLs, custom SMTP and Google sign-in.">
+<meta name="referrer" content="no-referrer">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+  <strong>Supabase Login &amp; Email Fix</strong>
+  <nav><a href="offer.html">Get it fixed for $49 →</a></nav>
+</header>
+
+<h1>Why aren't my Supabase signup and password-reset emails arriving?</h1>
+<p class="lead">Free check, no signup. Type the domain your app sends email from. I'll look up its public DNS records and tell you in plain English what's missing and how to fix it.</p>
+
+<div class="card">
+  <form id="f" autocomplete="off">
+    <label for="domain">Sender domain <small>(the part after @ in your "From" address, e.g. <code>myapp.com</code>)</small></label>
+    <input type="text" id="domain" name="domain" placeholder="myapp.com" required spellcheck="false">
+
+    <label for="sburl">Supabase project URL <small>(optional, e.g. <code>https://abcd1234.supabase.co</code>)</small></label>
+    <input type="text" id="sburl" name="sburl" placeholder="https://yourref.supabase.co" spellcheck="false">
+
+    <label for="appurl">Your live app URL <small>(optional, e.g. <code>https://myapp.com</code>)</small></label>
+    <input type="text" id="appurl" name="appurl" placeholder="https://myapp.com" spellcheck="false">
+
+    <p class="note"><strong>Never paste keys or passwords here.</strong> This page doesn't need any. If something that looks like a key gets pasted in, the page clears it and refuses to run. Your inputs stay in your browser. The only network calls are public DNS lookups to Cloudflare's DNS-over-HTTPS service (Google's as a backup). No trackers, no cookies, no analytics.</p>
+    <button type="submit" id="go">Check my setup</button>
+    <p id="formerr" class="err hidden"></p>
+  </form>
+</div>
+
+<div id="out" class="hidden" aria-live="polite">
+  <h2>Results for <span id="outdomain"></span></h2>
+  <div class="summary" id="summary"></div>
+  <div id="results"></div>
+</div>
+
+<h2 id="checklist">Supabase Auth settings checklist</h2>
+<p>DNS is only half of it. A public page can't see these settings (they live inside your Supabase dashboard), so tick them off yourself. Paths are from the Supabase dashboard.</p>
+<ul class="check">
+  <li><input type="checkbox" aria-label="done"><strong>Site URL is your real live address</strong>, not <code>http://localhost:3000</code> or a preview host. <em>Authentication → URL Configuration → Site URL.</em> Supabase uses it as the default link in confirmation and reset emails, so if it's wrong, every email link points to the wrong place.</li>
+  <li><input type="checkbox" aria-label="done"><strong>Redirect URLs list includes every place you send people back to</strong>, e.g. <code>https://myapp.com/**</code>. <code>**</code> matches any path; a single <code>*</code> stops at <code>/</code> and <code>.</code>, so <code>https://myapp.com/*</code> won't match <code>/auth/callback/x</code>. Supabase recommends exact paths for production, with wildcards for local dev and previews.</li>
+  <li><input type="checkbox" aria-label="done"><strong>Preview vs. production hosts are both covered, on purpose.</strong> If you build on Lovable, Bolt, Vercel or Netlify, the preview host (e.g. <code>*.lovable.app</code>, <code>*.vercel.app</code>) and your custom domain are different. "Works in preview, broken live" usually means only one of them is listed.</li>
+  <li><input type="checkbox" aria-label="done"><strong>Custom SMTP is turned on.</strong> <em>Authentication → Emails → SMTP Settings.</em> The built-in sender only delivers to your own team's addresses and is limited to 2 emails an hour. Real users won't get anything until custom SMTP is set up (Resend, Brevo, Postmark, ZeptoMail, SES, etc.).</li>
+  <li><input type="checkbox" aria-label="done"><strong>Email rate limit raised after SMTP is on.</strong> <em>Authentication → Rate Limits.</em> After you add custom SMTP, Supabase starts you at 30 emails an hour. Raise it to fit your signups, and stay under your email provider's own daily cap.</li>
+  <li><input type="checkbox" aria-label="done"><strong>Email templates use the right link variable.</strong> If your code passes <code>redirectTo</code>, the template link may need <code>{{ .RedirectTo }}</code> instead of <code>{{ .SiteURL }}</code>. A template hard-coded to an old preview URL breaks every email.</li>
+  <li><input type="checkbox" aria-label="done"><strong>Sending domain is verified at your email provider</strong> (all its DNS records show green). Turn off link tracking for auth emails: tracked links get rewritten and can break or look suspicious.</li>
+  <li><input type="checkbox" aria-label="done"><strong>Google sign-in:</strong> in Google Cloud → your OAuth client → <em>Authorized redirect URIs</em> contains your Supabase callback, <code>https://&lt;your-ref&gt;.supabase.co/auth/v1/callback</code> (or your Supabase custom domain). Your app's address goes under <em>Authorized JavaScript origins</em>, not in redirect URIs.</li>
+  <li><input type="checkbox" aria-label="done"><strong>Test with a real outside inbox</strong> (a Gmail address not on your Supabase team): sign up, confirm, reset password, magic link. Check spam too.</li>
+</ul>
+<p class="note">Sources: Supabase docs on <a href="https://supabase.com/docs/guides/auth/auth-smtp" rel="noopener">custom SMTP</a>, <a href="https://supabase.com/docs/guides/auth/rate-limits" rel="noopener">rate limits</a>, <a href="https://supabase.com/docs/guides/auth/redirect-urls" rel="noopener">redirect URLs</a>, <a href="https://supabase.com/docs/guides/auth/social-login/auth-google" rel="noopener">Google sign-in</a>.</p>
+
+<div class="cta">
+  <h2>Rather not wrestle with this?</h2>
+  <p>I'll fix it with you over a screen share: custom SMTP, DNS records, Site URL and redirects, templates, and a real test signup. You stay logged in to your own accounts, and I never ask for your passwords or keys.</p>
+  <p class="price">$49 flat</p>
+  <p>If I can't get your auth emails delivering, you don't pay (or you get your money back).</p>
+  <span class="btn big soon" data-cta="payment" data-label="Book the $49 fix" aria-disabled="true">Booking opens soon</span>
+  <a class="btn ghost" style="color:#fff;border-color:#fff;margin-left:8px" href="offer.html">What's included</a>
+</div>
+
+<footer>
+  Built by James "Jimmy" Sullivan, a self-taught builder of web apps and Chrome extensions in Rhode Island. <span data-email hidden></span> Not affiliated with Supabase, Resend, Brevo, Postmark or Zoho.
+</footer>
+</div>
+<script src="config.js"></script>
+<script src="check.js"></script>
+</body>
+</html>

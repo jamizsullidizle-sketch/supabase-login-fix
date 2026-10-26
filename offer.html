@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Supabase Login &amp; Email Fix: $49 flat, fixed over a screen share</title>
+<meta name="description" content="Signup, confirmation and password-reset emails not arriving from your Supabase app? Login broken on your live site? I'll fix it with you over a screen share for $49 flat. Not fixed, not charged.">
+<meta name="referrer" content="no-referrer">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+  <strong>Supabase Login &amp; Email Fix</strong>
+  <nav><a href="index.html">Free checker</a></nav>
+</header>
+
+<h1>Your Supabase app's emails don't arrive, or login breaks on the live site? I'll fix it for $49.</h1>
+<p class="lead">Fixed over a screen share. You stay logged in to your own accounts the whole time. If it's not fixed, you don't pay.</p>
+<span class="btn big soon" data-cta="payment" data-label="Book the $49 fix" aria-disabled="true">Booking opens soon</span>
+<a class="btn ghost" href="index.html">Run the free check first</a>
+
+<h2>Sound familiar?</h2>
+<ul>
+  <li>People sign up and never get the confirmation email.</li>
+  <li>"Forgot password" does nothing, or you hit a <code>429</code> / "email rate limit exceeded" error.</li>
+  <li>The email arrives, but the link goes to <code>localhost:3000</code> or your old preview address.</li>
+  <li>Everything works in the Lovable / Bolt / Vercel preview, but login is broken on your real domain.</li>
+  <li>"Sign in with Google" throws a <code>redirect_uri_mismatch</code> error.</li>
+</ul>
+<p>Usually this isn't a bug in your app. It's settings. Supabase's built-in email sender is for testing only: it sends just 2 emails an hour, and only to people on your Supabase team (<a href="https://supabase.com/docs/guides/auth/auth-smtp" rel="noopener">Supabase docs</a>). Real users get nothing until you plug in your own email service and point a few DNS records and URLs at the right places. It's fiddly and easy to get slightly wrong.</p>
+
+<h2>What I fix for $49</h2>
+<div class="card">
+<ul>
+  <li><strong>Custom email sending (SMTP):</strong> set up a free-tier email service (usually Resend; Brevo, Postmark or Zoho ZeptoMail if they suit you better) and connect it to Supabase Auth.</li>
+  <li><strong>DNS records</strong> so emails don't land in spam: SPF, DKIM and a starter DMARC record on your domain.</li>
+  <li><strong>Site URL and redirect URLs</strong> pointed at your live site, with dev/preview addresses kept separate.</li>
+  <li><strong>Email templates</strong> checked so links go to the right place (<code>{{ .SiteURL }}</code> vs <code>{{ .RedirectTo }}</code>).</li>
+  <li><strong>Email rate limit</strong> raised to a sensible number for your app.</li>
+  <li><strong>A real test:</strong> sign up, confirm, reset password, all to an outside Gmail inbox, while you watch.</li>
+  <li><strong>A short write-up</strong> afterwards of what was changed and the old values, so anything can be undone.</li>
+</ul>
+</div>
+
+<h2>Add-ons, $29 each</h2>
+<table>
+  <tr><td><strong>Google sign-in fix</strong></td><td>Fix <code>redirect_uri_mismatch</code> and similar errors: the Google Cloud OAuth client, the Supabase callback URL, and the right origins.</td></tr>
+  <tr><td><strong>New-table permissions fix (Oct 30 change)</strong></td><td>From October 30, 2026, Supabase stops automatically opening up <em>new</em> tables to your app (<a href="https://supabase.com/changelog/45329-breaking-change-tables-not-exposed-to-data-and-graphql-api-automatically" rel="noopener">Supabase changelog</a>). If a table you add afterwards throws <code>permission denied for table</code> (error 42501), I'll add the right grants <em>and</em> make sure row-level security is on, so you don't swap one problem for a data leak.</td></tr>
+  <tr><td><strong>Second environment</strong></td><td>Same email/URL setup for a staging or second Supabase project.</td></tr>
+</table>
+
+<h2>How it works</h2>
+<ol>
+  <li><strong>Run the <a href="index.html">free check</a></strong> (optional) and book. You'll get a short form: your domain, where your app is hosted, what's broken. No passwords.</li>
+  <li><strong>We do a screen share (about 45–60 minutes).</strong> You log in to Supabase, your domain/DNS provider and the email service yourself. I tell you exactly what to click and type. You can stop at any point.</li>
+  <li><strong>Before changing anything, we screenshot your current settings</strong> so everything can be put back.</li>
+  <li><strong>We test it live</strong> with a real signup and password reset. DNS changes sometimes take a while to spread. If something's still waiting on DNS, I'll check back within 24–48 hours at no extra cost.</li>
+</ol>
+
+<h2>Money-back promise</h2>
+<p>If your auth emails aren't delivering to a normal outside inbox (e.g. Gmail) by the end of our session and follow-up, I refund the $49, no argument. There are a couple of things I can't control, like a client's company mail server silently filtering everything, or a domain you can't get DNS access to. If I spot one of those, I'll tell you before we start.</p>
+
+<h2>FAQ</h2>
+<details><summary>Do you need my Supabase password or API keys?</summary><p>No, and please don't send them. You stay logged in and share your screen. If an email service gives you an SMTP password, you paste it into Supabase yourself. I never need to see it.</p></details>
+<details><summary>Will this cost me anything monthly?</summary><p>Usually no. Resend's free plan covers 3,000 emails a month (max 100 a day); Brevo's free plan allows 300 a day; Zoho ZeptoMail gives one free credit of 10,000 emails, valid for a month; Postmark's free plan is 100 emails a month for testing. Their prices can change; we'll check them on the day and pick what fits. Your domain needs to be one you control.</p></details>
+<details><summary>I built my app with Lovable / Bolt / Base44 / Cursor. Can you still help?</summary><p>Yes, as long as the backend is a Supabase project you can log in to. If your database is inside Lovable Cloud (not your own Supabase account), some settings may not be reachable. Tell me on the form and I'll say honestly whether I can help.</p></details>
+<details><summary>Do I need a custom domain?</summary><p>For reliable email, yes. Email services want to send from a domain you own. If you don't have one yet, we can cover what to buy, but the domain cost is yours.</p></details>
+<details><summary>Will you touch my database or code?</summary><p>Not for the $49 fix. It's auth settings, email and DNS only. The table-permissions add-on runs a few SQL statements, and we read them together before running them.</p></details>
+<details><summary>Who are you?</summary><p>I'm James "Jimmy" Sullivan, a self-taught builder in Rhode Island. I make web apps and Chrome extensions on Supabase, and I've set up auth email, DNS and redirects on my own projects. This is a small, focused service: one problem, a flat price, done properly.</p></details>
+<details><summary>What if my problem is something else?</summary><p>If it turns out to be a bug in your app code rather than settings, I'll tell you what I found. You won't be charged for the session unless the email/login part got fixed.</p></details>
+
+<div class="cta">
+  <h2>Get your signup emails working</h2>
+  <p class="price">$49 flat</p>
+  <p>Add-ons $29 each. Not fixed, not charged.</p>
+  <span class="btn big soon" data-cta="payment" data-label="Book the $49 fix" aria-disabled="true">Booking opens soon</span>
+  <p style="margin-top:14px" data-show-if="booking" hidden>Prefer to pick a time first? <span data-cta="booking" data-label="Pick a time">Pick a time</span></p>
+  <p style="margin-top:6px" data-email="light" hidden></p>
+</div>
+
+<footer>James "Jimmy" Sullivan · Rhode Island <span data-email hidden></span><br>Not affiliated with Supabase, Resend, Brevo, Postmark, Zoho or Google. Free-plan limits quoted from each provider's pricing page in October 2026 and may change.</footer>
+</div>
+<script src="config.js"></script>
+</body>
+</html>
