@@ -4,9 +4,9 @@
    Leave a value empty ("") to keep the "Booking opens soon" state / hide it.
    ============================================================ */
 window.SITE_CONFIG = {
-  PAYMENT_LINK: "",   // e.g. "https://buy.stripe.com/xxxx"  -> all "Book the $49 fix" buttons
+  PAYMENT_LINK: "https://buy.stripe.com/eVqaEQ4Um4UWdAg4XUco007",   // e.g. "https://buy.stripe.com/xxxx"  -> all "Book the $49 fix" buttons
   BOOKING_LINK: "",   // e.g. "https://cal.com/you/49-fix"   -> "Pick a time" link on offer.html
-  CONTACT_EMAIL: ""   // e.g. "jimmy@yourdomain.com"         -> shows "Questions: ..." lines
+  CONTACT_EMAIL: "jamizsullidizle@gmail.com"   // e.g. "jimmy@yourdomain.com"         -> shows "Questions: ..." lines
 };
 
 /* --- no need to edit below --- */
